@@ -559,14 +559,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 159568ec1535d984f8baf41efaac9d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ___Settings___: 
-  num_sprites_width: 2
-  num_sprites_height: 2
-  framerate: 5
-  ___Animations___: 
-  Animations: []
-  ___Info___: 
-  current_animtion: 
+  num_sprites_width: 20
+  num_sprites_height: 13
+  framerate: 20
+  animations:
+  - name: running right
+    startX: 0
+    startY: 0
+    num_of_frames: 24
+  - name: running left
+    startX: 0
+    startY: 7
+    num_of_frames: 24
+  current_animation_name: None
   frametime: 0
-  ___Developer___: 
+  currentFrame: 0
   debug: 1
