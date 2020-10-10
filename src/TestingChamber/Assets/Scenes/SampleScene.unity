@@ -567,10 +567,12 @@ MonoBehaviour:
     startX: 0
     startY: 0
     num_of_frames: 24
+    framerate: 20
   - name: running left
     startX: 0
     startY: 7
     num_of_frames: 24
+    framerate: 20
   current_animation_name: None
   frametime: 0
   currentFrame: 0

@@ -10,14 +10,22 @@ public class simple_spritesheet_animator : MonoBehaviour
     [Header("Settings")]
     public int num_sprites_width = 1;
     public int num_sprites_height = 1;
-    [Range(1, 60)]
-    public int framerate = 15;
     [Space(5)]
     public AnimationSegment[] animations;
 
     [Header("Info")]
     [ShowOnly] public string current_animation_name = "None";
-    [ShowOnly] public float frametime;
+    public float frametime
+    {
+        get
+        {
+            if (currentAnimation != null)
+            {
+                return 1.0f / currentAnimation.framerate;
+            }
+            return 0.05f;
+        }
+    }
     [ShowOnly] public int currentFrame;
     private AnimationSegment currentAnimation;
 
@@ -51,19 +59,30 @@ public class simple_spritesheet_animator : MonoBehaviour
             spriteFractionWidth,
             spriteFractionHeight
         );
-        // calculate frametime
-        frametime = 1.0f / framerate;
         // load first animation
-        if (animations.Length > 0)
+        if (currentAnimation == null && animations.Length > 0)
         {
             loadAnimation(animations[0]);
         }
     }
 
-    void loadAnimation(AnimationSegment animation)
+    public AnimationSegment getAnimationByName(string name)
+    {
+        foreach (var animation in animations)
+        {
+            if (animation.name == name)
+            {
+                return animation;
+            }
+        }
+        return null;
+    }
+
+    public void loadAnimation(AnimationSegment animation)
     {
         currentAnimation = animation;
         current_animation_name = animation.name;
+        spriteX = animation.startX;
     }
 
     // Update is called once per frame
@@ -83,15 +102,15 @@ public class simple_spritesheet_animator : MonoBehaviour
         }
     }
 
-    void nextFrame()
+    private void nextFrame()
     {
         int initialX = 0;
-        if (currentAnimation != null) initialX = currentAnimation.startX;
-        currentFrame = (spriteY * num_sprites_width) + spriteX;
+        if (currentAnimation != null ) initialX = currentAnimation.startX;
+        currentFrame = (spriteY * num_sprites_width) + spriteX - initialX;
         spriteX += 1;
         if (spriteX == num_sprites_width)
         {
-            spriteX = 0;
+            spriteX = initialX;
             spriteY += 1;
             if (spriteY == num_sprites_height)
             {
@@ -104,7 +123,7 @@ public class simple_spritesheet_animator : MonoBehaviour
         {
             if (currentFrame >= currentAnimation.num_of_frames)
             {
-                spriteX = 0;
+                spriteX = initialX;
                 spriteY = 0;
             }
             globalY += currentAnimation.startY;
@@ -112,7 +131,7 @@ public class simple_spritesheet_animator : MonoBehaviour
         offset = getOffset(globalX, globalY + 1);
     }
 
-    Vector2 getOffset(int x, int y)
+    private Vector2 getOffset(int x, int y)
     {
         float uvX = x * spriteFractionWidth;
         float uvY = ((num_sprites_height - y) * spriteFractionHeight);
