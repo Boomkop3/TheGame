@@ -4,18 +4,19 @@
 public class AnimationSegment
 {
     public string name;
-    public int startline;
+    public int startX;
+    public int startY;
     public int num_of_frames;
     public AnimationSegment()
     {
         this.name = "MyAnimation";
-        this.startline = 0;
+        this.startY = 0;
         this.num_of_frames = 0;
     }
     public AnimationSegment(string name, int startLine, int num_of_frames)
     {
         this.name = name;
-        startline = startLine;
+        startY = startLine;
         this.num_of_frames = num_of_frames;
     }
 }

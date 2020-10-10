@@ -85,6 +85,8 @@ public class simple_spritesheet_animator : MonoBehaviour
 
     void nextFrame()
     {
+        int initialX = 0;
+        if (currentAnimation != null) initialX = currentAnimation.startX;
         currentFrame = (spriteY * num_sprites_width) + spriteX;
         spriteX += 1;
         if (spriteX == num_sprites_width)
@@ -105,7 +107,7 @@ public class simple_spritesheet_animator : MonoBehaviour
                 spriteX = 0;
                 spriteY = 0;
             }
-            globalY += currentAnimation.startline;
+            globalY += currentAnimation.startY;
         }
         offset = getOffset(globalX, globalY + 1);
     }
