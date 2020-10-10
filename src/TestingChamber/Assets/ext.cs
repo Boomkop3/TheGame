@@ -1,69 +1,72 @@
 ﻿using UnityEngine;
 
-public static class ext
+namespace extensions
 {
-    public enum Direction
+    public static class ext
     {
-        RIGHT, LEFT, UP, DOWN, BACK, FORTH
-    }
-    public static void move (this GameObject obj, Direction direction, float speed)
-    {
-        switch (direction)
+        public enum Direction
         {
-            case Direction.BACK:
-                {
-                    obj.transform.position = new Vector3(
-                        obj.transform.position.x,
-                        obj.transform.position.y,
-                        obj.transform.position.z - speed
-                    );
-                    break;
-                }
-            case Direction.FORTH:
-                {
-                    obj.transform.position = new Vector3(
-                        obj.transform.position.x,
-                        obj.transform.position.y,
-                        obj.transform.position.z + speed
-                    );
-                    break;
-                }
-            case Direction.LEFT: 
-                {
-                    obj.transform.position = new Vector3(
-                        obj.transform.position.x - speed,
-                        obj.transform.position.y,
-                        obj.transform.position.z
-                    );
-                    break;
-                }
-            case Direction.RIGHT:
-                {
-                    obj.transform.position = new Vector3(
-                        obj.transform.position.x + speed,
-                        obj.transform.position.y,
-                        obj.transform.position.z
-                    );
-                    break;
-                }
-            case Direction.UP:
-                {
-                    obj.transform.position = new Vector3(
-                        obj.transform.position.x,
-                        obj.transform.position.y + speed,
-                        obj.transform.position.z
-                    );
-                    break;
-                }
-            case Direction.DOWN:
-                {
-                    obj.transform.position = new Vector3(
-                        obj.transform.position.x,
-                        obj.transform.position.y - speed,
-                        obj.transform.position.z
-                    );
-                    break;
-                }
+            RIGHT, LEFT, UP, DOWN, BACK, FORTH, NONE
+        }
+        public static void move(this GameObject obj, Direction direction, float speed)
+        {
+            switch (direction)
+            {
+                case Direction.BACK:
+                    {
+                        obj.transform.position = new Vector3(
+                            obj.transform.position.x,
+                            obj.transform.position.y,
+                            obj.transform.position.z - speed
+                        );
+                        break;
+                    }
+                case Direction.FORTH:
+                    {
+                        obj.transform.position = new Vector3(
+                            obj.transform.position.x,
+                            obj.transform.position.y,
+                            obj.transform.position.z + speed
+                        );
+                        break;
+                    }
+                case Direction.LEFT:
+                    {
+                        obj.transform.position = new Vector3(
+                            obj.transform.position.x - speed,
+                            obj.transform.position.y,
+                            obj.transform.position.z
+                        );
+                        break;
+                    }
+                case Direction.RIGHT:
+                    {
+                        obj.transform.position = new Vector3(
+                            obj.transform.position.x + speed,
+                            obj.transform.position.y,
+                            obj.transform.position.z
+                        );
+                        break;
+                    }
+                case Direction.UP:
+                    {
+                        obj.transform.position = new Vector3(
+                            obj.transform.position.x,
+                            obj.transform.position.y + speed,
+                            obj.transform.position.z
+                        );
+                        break;
+                    }
+                case Direction.DOWN:
+                    {
+                        obj.transform.position = new Vector3(
+                            obj.transform.position.x,
+                            obj.transform.position.y - speed,
+                            obj.transform.position.z
+                        );
+                        break;
+                    }
+            }
         }
     }
 }

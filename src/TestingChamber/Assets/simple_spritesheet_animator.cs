@@ -80,6 +80,7 @@ public class simple_spritesheet_animator : MonoBehaviour
 
     public void loadAnimation(AnimationSegment animation)
     {
+        if (currentAnimation == animation) return;
         currentAnimation = animation;
         current_animation_name = animation.name;
         spriteX = animation.startX;

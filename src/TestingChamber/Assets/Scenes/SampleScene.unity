@@ -253,7 +253,7 @@ Light:
     m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.69
     m_Bias: 0
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -451,6 +451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392766640d4114a4cbbe3fa6d6d74024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0.01
+  animation_character: {fileID: 1511771732}
 --- !u!4 &1234934121
 Transform:
   m_ObjectHideFlags: 0
@@ -541,7 +543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511771732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0040000007, y: -0.3219, z: 0.46899986}
+  m_LocalPosition: {x: 0.0040000007, y: -0.358, z: 0.46899986}
   m_LocalScale: {x: -0.1, y: -0.1, z: 0.001}
   m_Children: []
   m_Father: {fileID: 1234934121}
@@ -561,8 +563,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   num_sprites_width: 20
   num_sprites_height: 13
-  framerate: 20
   animations:
+  - name: standing
+    startX: 4
+    startY: 10
+    num_of_frames: 0
+    framerate: 20
   - name: running right
     startX: 0
     startY: 0
@@ -574,6 +580,5 @@ MonoBehaviour:
     num_of_frames: 24
     framerate: 20
   current_animation_name: None
-  frametime: 0
   currentFrame: 0
   debug: 1
