@@ -12,13 +12,14 @@ public class simple_spritesheet_animator : MonoBehaviour
     public int num_sprites_height = 1;
     [Range(1, 60)]
     public int framerate = 15;
-    // [Space(5)]
-    // public AnimationSegment[] animations;
+    [Space(5)]
+    public AnimationSegment[] animations;
 
     [Header("Info")]
-    // [ShowOnly] public string current_animation = "None";
+    [ShowOnly] public string current_animation_name = "None";
     [ShowOnly] public float frametime;
-    // private AnimationSegment currentAnimation;
+    [ShowOnly] public int currentFrame;
+    private AnimationSegment currentAnimation;
 
     [Header("Developer")]
     public bool debug = false;
@@ -53,21 +54,17 @@ public class simple_spritesheet_animator : MonoBehaviour
         // calculate frametime
         frametime = 1.0f / framerate;
         // load first animation
-        /*
         if (animations.Length > 0)
         {
             loadAnimation(animations[0]);
         }
-        */
     }
 
-    /*
     void loadAnimation(AnimationSegment animation)
     {
         currentAnimation = animation;
-        current_animation = animation.name;
+        current_animation_name = animation.name;
     }
-    */
 
     // Update is called once per frame
     void Update()
@@ -88,6 +85,7 @@ public class simple_spritesheet_animator : MonoBehaviour
 
     void nextFrame()
     {
+        currentFrame = (spriteY * num_sprites_width) + spriteX;
         spriteX += 1;
         if (spriteX == num_sprites_width)
         {
@@ -98,7 +96,18 @@ public class simple_spritesheet_animator : MonoBehaviour
                 spriteY = 0;
             }
         }
-        offset = getOffset(spriteX, spriteY);
+        int globalX = spriteX;
+        int globalY = spriteY;
+        if (currentAnimation != null)
+        {
+            if (currentFrame >= currentAnimation.num_of_frames)
+            {
+                spriteX = 0;
+                spriteY = 0;
+            }
+            globalY += currentAnimation.startline;
+        }
+        offset = getOffset(globalX, globalY + 1);
     }
 
     Vector2 getOffset(int x, int y)
