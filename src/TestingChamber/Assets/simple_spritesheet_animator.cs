@@ -1,22 +1,31 @@
-﻿#define debug
-#undef debug
-
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Assets;
 
 public class simple_spritesheet_animator : MonoBehaviour
 {
+    [Header("Settings")]
     public int num_sprites_width = 1;
     public int num_sprites_height = 1;
+    [Range(1, 60)]
     public int framerate = 15;
+    // [Space(5)]
+    // public AnimationSegment[] animations;
+
+    [Header("Info")]
+    // [ShowOnly] public string current_animation = "None";
+    [ShowOnly] public float frametime;
+    // private AnimationSegment currentAnimation;
+
+    [Header("Developer")]
+    public bool debug = false;
 
     private Material material;
     private Vector2 scale;
     private float timeDelta = 0;
-    private float frametime;
 
     private int spriteX, spriteY = 0;
     private Vector2 offset;
@@ -27,6 +36,13 @@ public class simple_spritesheet_animator : MonoBehaviour
         // get material
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
         material = meshRenderer.material;
+        init();
+        // Set first offset
+        offset = getOffset(spriteX, spriteY);
+    }
+
+    void init()
+    {
         // calculate scale
         spriteFractionWidth = 1.0f / num_sprites_width;
         spriteFractionHeight = 1.0f / num_sprites_height;
@@ -36,27 +52,30 @@ public class simple_spritesheet_animator : MonoBehaviour
         );
         // calculate frametime
         frametime = 1.0f / framerate;
-        // Set first offset
-        offset = getOffset(spriteX, spriteY);
+        // load first animation
         /*
-        offset = new Vector2(
-            0.0f, 1.0f - spriteFractionHeight
-        );
+        if (animations.Length > 0)
+        {
+            loadAnimation(animations[0]);
+        }
         */
     }
+
+    /*
+    void loadAnimation(AnimationSegment animation)
+    {
+        currentAnimation = animation;
+        current_animation = animation.name;
+    }
+    */
 
     // Update is called once per frame
     void Update()
     {
-#if debug
-        spriteFractionWidth = 1.0f / num_sprites_width;
-            spriteFractionHeight = 1.0f / num_sprites_height;
-            scale = new Vector2(
-                spriteFractionWidth,
-                spriteFractionHeight
-            );
-            frametime = 1.0f / framerate;
-#endif
+        if (debug)
+        {
+            init();
+        }
         material.mainTextureScale = scale;
         material.mainTextureOffset = offset;
         timeDelta += Time.deltaTime;
@@ -86,11 +105,12 @@ public class simple_spritesheet_animator : MonoBehaviour
     {
         float uvX = x * spriteFractionWidth;
         float uvY = ((num_sprites_height - y) * spriteFractionHeight);
-#if debug
-        Debug.Log("AnimX: " + x + " AnimY: " + y);
-        Debug.Log("x: " + uvX);
-        Debug.Log("y: " + uvY);
-#endif
+        if (debug)
+        {
+            Debug.Log("AnimX: " + x + " AnimY: " + y);
+            Debug.Log("x: " + uvX);
+            Debug.Log("y: " + uvY);
+        }
         return new Vector2(
             uvX,
             uvY

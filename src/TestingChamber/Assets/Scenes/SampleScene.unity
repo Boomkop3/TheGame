@@ -479,7 +479,6 @@ GameObject:
   - component: {fileID: 1511771735}
   - component: {fileID: 1511771734}
   - component: {fileID: 1511771737}
-  - component: {fileID: 1511771733}
   m_Layer: 0
   m_Name: character
   m_TagString: Untagged
@@ -487,18 +486,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1511771733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511771732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf0f78158dd42c741a8f6e25cd55a590, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &1511771734
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -517,7 +504,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79a338bbdd4242146826b5bd98e067b4, type: 2}
+  - {fileID: 2100000, guid: ffbbcad158f28e24a8f6996eaba5935e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -572,6 +559,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 159568ec1535d984f8baf41efaac9d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ___Settings___: 
   num_sprites_width: 2
   num_sprites_height: 2
   framerate: 5
+  ___Animations___: 
+  Animations: []
+  ___Info___: 
+  current_animtion: 
+  frametime: 0
+  ___Developer___: 
+  debug: 1
