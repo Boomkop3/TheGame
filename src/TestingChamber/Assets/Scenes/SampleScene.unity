@@ -452,7 +452,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.01
-  animation_character: {fileID: 1511771732}
 --- !u!4 &1234934121
 Transform:
   m_ObjectHideFlags: 0
