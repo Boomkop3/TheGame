@@ -8,65 +8,70 @@ namespace extensions
         {
             RIGHT, LEFT, UP, DOWN, BACK, FORTH, NONE
         }
-        public static void move(this GameObject obj, Direction direction, float speed)
+        public static Vector3 move(this Vector3 vector, Direction direction, float speed)
         {
             switch (direction)
             {
                 case Direction.BACK:
                     {
-                        obj.transform.position = new Vector3(
-                            obj.transform.position.x,
-                            obj.transform.position.y,
-                            obj.transform.position.z - speed
+                        return new Vector3(
+                            vector.x,
+                            vector.y,
+                            vector.z - speed
                         );
-                        break;
                     }
                 case Direction.FORTH:
                     {
-                        obj.transform.position = new Vector3(
-                            obj.transform.position.x,
-                            obj.transform.position.y,
-                            obj.transform.position.z + speed
+                        return new Vector3(
+                            vector.x,
+                            vector.y,
+                            vector.z + speed
                         );
-                        break;
                     }
                 case Direction.LEFT:
                     {
-                        obj.transform.position = new Vector3(
-                            obj.transform.position.x - speed,
-                            obj.transform.position.y,
-                            obj.transform.position.z
+                        return new Vector3(
+                            vector.x - speed,
+                            vector.y,
+                            vector.z
                         );
-                        break;
                     }
                 case Direction.RIGHT:
                     {
-                        obj.transform.position = new Vector3(
-                            obj.transform.position.x + speed,
-                            obj.transform.position.y,
-                            obj.transform.position.z
+                        return new Vector3(
+                            vector.x + speed,
+                            vector.y,
+                            vector.z
                         );
-                        break;
                     }
                 case Direction.UP:
                     {
-                        obj.transform.position = new Vector3(
-                            obj.transform.position.x,
-                            obj.transform.position.y + speed,
-                            obj.transform.position.z
+                        return new Vector3(
+                            vector.x,
+                            vector.y + speed,
+                            vector.z
                         );
-                        break;
                     }
                 case Direction.DOWN:
                     {
-                        obj.transform.position = new Vector3(
-                            obj.transform.position.x,
-                            obj.transform.position.y - speed,
-                            obj.transform.position.z
+                        return new Vector3(
+                            vector.x,
+                            vector.y - speed,
+                            vector.z
                         );
-                        break;
                     }
             }
+            return vector;
+        }
+        public static void move(this Rigidbody obj, Direction direction, float speed)
+        {
+            obj.MovePosition(
+                obj.position.move(direction, speed)
+            );
+        }
+        public static void move(this GameObject obj, Direction direction, float speed)
+        {
+            obj.transform.position = obj.transform.position.move(direction, speed);
         }
     }
 }

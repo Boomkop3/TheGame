@@ -88,7 +88,7 @@ public class walker : MonoBehaviour
 
     void Start()
     {
-        animator = gameObject.transform.GetComponentInChildren<simple_spritesheet_animator>();
+        animator = gameObject.transform.GetComponent<simple_spritesheet_animator>();
         standingAnimation = animator.getAnimationByName("standing");
         runningRightAnimation = animator.getAnimationByName("running right");
         runningLeftAnimation = animator.getAnimationByName("running left");
@@ -118,7 +118,7 @@ public class walker : MonoBehaviour
 
     void FixedUpdate()
     {
-        gameObject.move(Direction.RIGHT, Controls.WalkingDirection.x * speed);
-        gameObject.move(Direction.FORTH, Controls.WalkingDirection.y * speed);
+        gameObject.GetComponent<Rigidbody>().move(Direction.RIGHT, Controls.WalkingDirection.x * speed);
+        gameObject.GetComponent<Rigidbody>().move(Direction.FORTH, Controls.WalkingDirection.y * speed);
     }
 }
