@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace extensions
+namespace Assets.Code.Library
 {
-    public static class ext
+    public static class VectorMovement
     {
         public enum Direction
         {

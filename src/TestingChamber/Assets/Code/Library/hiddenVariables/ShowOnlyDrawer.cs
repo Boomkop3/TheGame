@@ -5,10 +5,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace Assets
+namespace Assets.Code.Library
 {
-    public class ShowOnlyAttribute : PropertyAttribute { }
-
     [CustomPropertyDrawer(typeof(ShowOnlyAttribute))]
     public class ShowOnlyDrawer : PropertyDrawer
     {

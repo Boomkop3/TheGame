@@ -1,124 +1,56 @@
-﻿using extensions;
+﻿using Assets.Code.Graphics;
+using Assets.Code.Library;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using Direction = extensions.ext.Direction;
+using Direction = Assets.Code.Library.VectorMovement.Direction;
 
-public static class Controls
+namespace Assets.Code.Player
 {
-    private interface IControlAction
+    public class Walker : MonoBehaviour
     {
-        bool onPress { get; }
-        bool onRelease { get; }
-        bool whilePressed { get; }
-        float analogValue { get; }
-    }
+        public float speed = 0.0025f;
+        Simple_spritesheet_animator animator;
+        private AnimationSegment runningRightAnimation;
+        private AnimationSegment runningLeftAnimation;
+        private AnimationSegment standingAnimation;
 
-    private class KeyboardControlAction : IControlAction
-    {
-        private KeyCode key;
-        public KeyboardControlAction(KeyCode key)
+        void Start()
         {
-            this.key = key;
+            animator = gameObject.transform.GetComponent<Simple_spritesheet_animator>();
+            standingAnimation = animator.getAnimationByName("standing");
+            runningRightAnimation = animator.getAnimationByName("running right");
+            runningLeftAnimation = animator.getAnimationByName("running left");
         }
-        public bool onPress => Input.GetKeyDown(key);
-        public bool onRelease => Input.GetKeyUp(key);
-        public bool whilePressed => Input.GetKey(key);
-        public float analogValue => whilePressed ? 1 : 0;
-    }
-    private static class KeyboardControls
-    {
-        public static IControlAction up;
-        public static IControlAction down;
-        public static IControlAction left;
-        public static IControlAction right;
-        static KeyboardControls()
+
+        void Update()
         {
-            up = new KeyboardControlAction(KeyCode.W);
-            down = new KeyboardControlAction(KeyCode.S);
-            left = new KeyboardControlAction(KeyCode.A);
-            right = new KeyboardControlAction(KeyCode.D);
-        }
-    }
-    public static class WalkingDirection
-    {
-        public static float x
-        {
-            get
+            switch (Controls.WalkingDirection.direction)
             {
-                float x = 0;
-                if (KeyboardControls.right.whilePressed) x++;
-                if (KeyboardControls.left.whilePressed) x--;
-                return x;
+                case Direction.LEFT:
+                    animator.loadAnimation(runningLeftAnimation);
+                    break;
+                case Direction.RIGHT:
+                    animator.loadAnimation(runningRightAnimation);
+                    break;
+                case Direction.UP:
+                    animator.loadAnimation(standingAnimation);
+                    break;
+                case Direction.DOWN:
+                    animator.loadAnimation(standingAnimation);
+                    break;
+                default:
+                    animator.loadAnimation(standingAnimation);
+                    break;
             }
         }
-        public static float y
+
+        void FixedUpdate()
         {
-            get
-            {
-                float y = 0;
-                if (KeyboardControls.up.whilePressed) y++;
-                if (KeyboardControls.down.whilePressed) y--;
-                return y;
-            }
+            gameObject.GetComponent<Rigidbody>().move(Direction.RIGHT, Controls.WalkingDirection.x * speed);
+            gameObject.GetComponent<Rigidbody>().move(Direction.FORTH, Controls.WalkingDirection.y * speed);
         }
-        public static Direction direction
-        {
-            get
-            {
-                if (x < -0.5) return Direction.LEFT;
-                if (x > 0.5) return Direction.RIGHT;
-                if (y > 0.5) return Direction.UP;
-                if (y < -0.5) return Direction.DOWN;
-                return Direction.NONE;
-            }
-        }
-    }
-}
-
-public class walker : MonoBehaviour
-{
-    public float speed = 0.0025f;
-    simple_spritesheet_animator animator;
-    private AnimationSegment runningRightAnimation;
-    private AnimationSegment runningLeftAnimation;
-    private AnimationSegment standingAnimation;
-
-    void Start()
-    {
-        animator = gameObject.transform.GetComponent<simple_spritesheet_animator>();
-        standingAnimation = animator.getAnimationByName("standing");
-        runningRightAnimation = animator.getAnimationByName("running right");
-        runningLeftAnimation = animator.getAnimationByName("running left");
-    }
-
-    void Update()
-    {
-       switch (Controls.WalkingDirection.direction)
-        {
-            case Direction.LEFT:
-                animator.loadAnimation(runningLeftAnimation);
-                break;
-            case Direction.RIGHT:
-                animator.loadAnimation(runningRightAnimation);
-                break;
-            case Direction.UP:
-                animator.loadAnimation(standingAnimation);
-                break;
-            case Direction.DOWN:
-                animator.loadAnimation(standingAnimation);
-                break;
-            default:
-                animator.loadAnimation(standingAnimation);
-                break;
-        }
-    }
-
-    void FixedUpdate()
-    {
-        gameObject.GetComponent<Rigidbody>().move(Direction.RIGHT, Controls.WalkingDirection.x * speed);
-        gameObject.GetComponent<Rigidbody>().move(Direction.FORTH, Controls.WalkingDirection.y * speed);
     }
 }
