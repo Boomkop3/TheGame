@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using Assets;
 
-namespace Assets.Code.Graphics
+namespace Assets.Code.Spritesheets
 {
     [Serializable]
     public class AnimationSegment

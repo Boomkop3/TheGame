@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 using Assets;
 using Assets.Code.Library;
 
-namespace Assets.Code.Graphics
+namespace Assets.Code.Spritesheets
 {
     public class Simple_spritesheet_animator : MonoBehaviour
     {

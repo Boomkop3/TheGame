@@ -1,4 +1,4 @@
-﻿using Assets.Code.Graphics;
+﻿using Assets.Code.Spritesheets;
 using Assets.Code.Library;
 using System;
 using System.Collections;
