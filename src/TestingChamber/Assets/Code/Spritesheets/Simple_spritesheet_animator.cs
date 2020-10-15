@@ -51,6 +51,8 @@ namespace Assets.Code.Spritesheets
             init();
             // Set first offset
             offset = getOffset(spriteX, spriteY);
+            // fuck off
+            debug = false;
         }
 
         void init()
