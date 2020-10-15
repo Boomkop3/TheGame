@@ -1,11 +1,14 @@
-﻿using Direction = Assets.Code.Library.VectorMovement.Direction;
+﻿using Assets.Code.Player.Hardware;
+using Direction = Assets.Code.Library.VectorMovement.Direction;
 
 namespace Assets.Code.Player
 {
     public class Controls
     {
+        
         public static class WalkingDirection
         {
+            public static IControlSchemeKeys keys => ControlHub.lastUsedControlScheme;
             public static float x
             {
                 get
